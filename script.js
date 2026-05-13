@@ -1,99 +1,79 @@
-// --- FUNÇÃO PARA GARANTIR QUE O SITE CARREGOU TUDO ---
 window.onload = function() {
-
-    // --- LÓGICA DE LOGIN (Só roda se o formulário existir na página) ---
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
-        console.log("Sistema de Login Ativo");
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if (email && password) {
-                window.location.href = 'planner.html';
-            } else {
-                alert("Por favor, preencha todos os campos.");
-            }
+            window.location.href = 'planner.html';
         });
     }
 
-    // --- LÓGICA DO PLANNER (Só roda se a lista de tarefas existir na página) ---
-    const taskListElement = document.getElementById('task-list');
-    if (taskListElement) {
-        console.log("Sistema de Planner Ativo");
-        renderTasks(); // Carrega as tarefas salvas assim que entra na página
+    if (document.getElementById('planner-grid')) {
+        renderPlanner();
     }
 };
 
-// --- FUNÇÕES GERAIS DO PLANNER ---
 let tasks = JSON.parse(localStorage.getItem('myTasks')) || [];
 
-function addTask() {
-    const nameInput = document.getElementById('task-name');
-    const timeInput = document.getElementById('task-time');
-
-    if (!nameInput.value || !timeInput.value) {
-        alert("Preencha o nome e o horário!");
-        return;
-    }
-
-    const newTask = {
-        id: Date.now(),
-        name: nameInput.value,
-        time: timeInput.value,
-        done: false
-    };
-
-    tasks.push(newTask);
-    saveAndRefesh();
+function renderPlanner() {
+    const grid = document.getElementById('planner-grid');
+    grid.innerHTML = '';
     
-    // Limpa os campos após adicionar
-    nameInput.value = '';
-    timeInput.value = '';
+    // Criar linhas das 08:00 às 17:00
+    for (let h = 8; h <= 17; h++) {
+        const hourStr = h < 10 ? `0${h}:00` : `${h}:00`;
+        
+        const row = document.createElement('div');
+        row.className = 'hour-row';
+        
+        // Filtrar tarefas desse horário
+        const taskAtHour = tasks.filter(t => t.time.startsWith(hourStr.substring(0,2)));
+
+        let taskHtml = '';
+        taskAtHour.forEach(t => {
+            taskHtml += `
+                <div class="task-item">
+                    <span class="${t.done ? 'completed-text' : ''}">${t.name}</span>
+                    <div>
+                        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask(${t.id})">
+                        <button onclick="deleteTask(${t.id})" style="width:auto; padding:2px 5px; font-size:10px; background:red;">X</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        row.innerHTML = `
+            <div class="time-label">${hourStr}</div>
+            <div class="task-slot">${taskHtml}</div>
+        `;
+        grid.appendChild(row);
+    }
+    updateStats();
+}
+
+function addTask() {
+    const name = document.getElementById('task-name').value;
+    const time = document.getElementById('task-time').value;
+
+    if (!name || !time) return alert("Preencha tudo!");
+
+    tasks.push({ id: Date.now(), name, time, done: false });
+    localStorage.setItem('myTasks', JSON.stringify(tasks));
+    renderPlanner();
 }
 
 function toggleTask(id) {
     tasks = tasks.map(t => t.id === id ? {...t, done: !t.done} : t);
-    saveAndRefesh();
+    localStorage.setItem('myTasks', JSON.stringify(tasks));
+    renderPlanner();
 }
 
 function deleteTask(id) {
     tasks = tasks.filter(t => t.id !== id);
-    saveAndRefesh();
-}
-
-function saveAndRefesh() {
     localStorage.setItem('myTasks', JSON.stringify(tasks));
-    renderTasks();
+    renderPlanner();
 }
 
-function renderTasks() {
-    const list = document.getElementById('task-list');
-    if (!list) return;
-
-    list.innerHTML = '';
-    let pending = 0;
-
-    // Ordena por horário e renderiza
-    tasks.sort((a, b) => a.time.localeCompare(b.time)).forEach(task => {
-        if (!task.done) pending++;
-        
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <div>
-                <input type="checkbox" ${task.done ? 'checked' : ''} onchange="toggleTask(${task.id})">
-                <span class="${task.done ? 'completed' : ''}"><strong>${task.time}</strong> - ${task.name}</span>
-            </div>
-            <button onclick="deleteTask(${task.id})" style="width: auto; background: #eee; color: #333; padding: 5px 10px; margin: 0; border: 1px solid #ccc;">Excluir</button>
-        `;
-        list.appendChild(li);
-    });
-
-    // Atualiza os contadores na tela
-    const totalEl = document.getElementById('total-count');
-    const pendingEl = document.getElementById('pending-count');
-    
-    if(totalEl) totalEl.innerText = tasks.length;
-    if(pendingEl) pendingEl.innerText = pending;
+function updateStats() {
+    document.getElementById('total-count').innerText = tasks.length;
+    document.getElementById('pending-count').innerText = tasks.filter(t => !t.done).length;
 }
