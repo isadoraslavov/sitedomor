@@ -9,16 +9,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
+    <!-- Navbar (Escondida até logar) -->
+    <nav id="main-nav" class="navbar hidden">
         <span>Planner Corporativo | <strong>Bacharelando</strong></span>
         <div class="nav-links">
             <button onclick="mostrarPagina('agendar')">Agendar</button>
             <button onclick="mostrarPagina('agenda-view')">Ver Agenda</button>
+            <button onclick="logout()" class="btn-sair">Sair</button>
         </div>
     </nav>
 
-    <!-- PÁGINA DE AGENDAMENTO -->
-    <div id="pag-agendar" class="container active">
+    <!-- 1. TELA DE LOGIN (A que sumiu!) -->
+    <div id="pag-login" class="container">
+        <h1>Entrar no Planner</h1>
+        <div class="form-auth">
+            <input type="email" id="login-email" placeholder="Seu e-mail" required>
+            <input type="password" id="login-senha" placeholder="Sua senha" required>
+            <button id="btn-entrar" onclick="login()">Acessar Conta</button>
+            <p onclick="cadastrar()" class="link-alt">Não tem conta? Cadastre-se</p>
+        </div>
+        <p id="auth-status"></p>
+    </div>
+
+    <!-- 2. TELA DE AGENDAMENTO (Escondida) -->
+    <div id="pag-agendar" class="container hidden">
         <h1>Agendar Tarefa</h1>
         <form id="form-planner">
             <input type="text" id="nome-tarefa" placeholder="O que precisa ser feito?" required>
@@ -28,26 +42,17 @@
         <p id="mensagem-status"></p>
     </div>
 
-    <!-- PÁGINA DE VISUALIZAÇÃO (AGENDA) -->
+    <!-- 3. TELA DE AGENDA (Escondida) -->
     <div id="pag-agenda-view" class="planner-layout hidden">
         <aside class="sidebar">
-            <section class="stats-cards">
-                <div class="card">
-                    <h4 id="total-count">0</h4>
-                    <p>Total</p>
-                </div>
-                <div class="card">
-                    <h4 id="pending-count">0</h4>
-                    <p>Pendentes</p>
-                </div>
-            </section>
-        </aside>
-
-        <main class="agenda-view">
-            <h2>Agenda do Dia</h2>
-            <div id="planner-grid">
-                <!-- As tarefas aparecerão aqui -->
+            <div class="card">
+                <h4 id="total-count">0</h4>
+                <p>Total de Tarefas</p>
             </div>
+        </aside>
+        <main class="agenda-view">
+            <h2>Minha Agenda</h2>
+            <div id="planner-grid"></div>
         </main>
     </div>
 
