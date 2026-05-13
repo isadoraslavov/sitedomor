@@ -1,0 +1,7 @@
+body { font-family: sans-serif; background: #f4f4f9; display: flex; justify-content: center; padding: 20px; }
+.container, .planner-container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+input, button { width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+button { background: #007bff; color: white; cursor: pointer; border: none; }
+.completed { text-decoration: line-through; color: gray; }
+ul { list-style: none; padding: 0; }
+li { background: #eee; margin: 5px 0; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
