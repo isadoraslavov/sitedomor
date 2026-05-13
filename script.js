@@ -1,82 +1,82 @@
+// Configuração Supabase
 const _supabase = supabase.createClient('https://qbizialhpifperuvueqv.supabase.co', 'sb_publishable_i8-8p1E4Ia36CmFcUIcdrA_P92HMq74');
 
+// Configuração EmailJS
 emailjs.init('J0om68UZr-X2iZqtQ');
-const S_ID = 'service_4wdjx3o';
-const T_ID = 'template_51imowl';
 
-// NAVEGAÇÃO ENTRE LOGIN E CADASTRO
-function trocarAuth(tipo) {
+// Alternar entre Login e Cadastro
+function toggleCards(modo) {
     document.getElementById('card-login').classList.add('hidden');
     document.getElementById('card-cadastro').classList.add('hidden');
-    if(tipo === 'login') document.getElementById('card-login').classList.remove('hidden');
-    if(tipo === 'cadastro') document.getElementById('card-cadastro').classList.remove('hidden');
+    if(modo === 'login') document.getElementById('card-login').classList.remove('hidden');
+    if(modo === 'cadastro') document.getElementById('card-cadastro').classList.remove('hidden');
 }
 
-// FUNÇÃO DE LOGIN
-async function executarLogin() {
+// LOGIN
+document.getElementById('btn-entrar').addEventListener('click', async () => {
     const email = document.getElementById('email-login').value;
     const password = document.getElementById('senha-login').value;
-    const msg = document.getElementById('msg-login');
+    const feedback = document.getElementById('feedback-login');
 
     const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
-        msg.innerText = "Erro: " + error.message;
-        msg.style.color = "red";
+        feedback.innerText = "Erro: " + error.message;
+        feedback.style.color = "red";
     } else {
-        document.getElementById('sessao-auth').classList.add('hidden');
-        document.getElementById('tela-dashboard').classList.remove('hidden');
+        document.getElementById('auth-section').classList.add('hidden');
+        document.getElementById('dash-section').classList.remove('hidden');
     }
-}
+});
 
-// FUNÇÃO DE CADASTRO
-async function executarCadastro() {
-    const email = document.getElementById('email-cadastro').value;
-    const password = document.getElementById('senha-cadastro').value;
-    const msg = document.getElementById('msg-cadastro');
+// CADASTRO
+document.getElementById('btn-cadastrar').addEventListener('click', async () => {
+    const email = document.getElementById('email-cad').value;
+    const password = document.getElementById('senha-cad').value;
+    const feedback = document.getElementById('feedback-cad');
 
     const { data, error } = await _supabase.auth.signUp({ email, password });
 
     if (error) {
-        msg.innerText = "Erro: " + error.message;
-        msg.style.color = "red";
+        feedback.innerText = "Erro: " + error.message;
     } else {
-        msg.innerText = "Sucesso! Verifique seu e-mail para confirmar.";
-        msg.style.color = "green";
+        feedback.innerText = "Sucesso! Verifique seu e-mail.";
+        feedback.style.color = "green";
     }
-}
+});
 
-// MUDAR ABAS DO DASHBOARD
-function mudarAba(aba) {
+// NAVEGAÇÃO ABAS
+function aba(nome) {
     document.getElementById('aba-agendar').classList.add('hidden');
-    document.getElementById('aba-agenda').classList.add('hidden');
-    if(aba === 'agendar') document.getElementById('aba-agendar').classList.remove('hidden');
-    if(aba === 'agenda') {
-        document.getElementById('aba-agenda').classList.remove('hidden');
-        carregarAgenda();
+    document.getElementById('aba-lista').classList.add('hidden');
+    if(nome === 'agendar') document.getElementById('aba-agendar').classList.remove('hidden');
+    if(nome === 'lista') {
+        document.getElementById('aba-lista').classList.remove('hidden');
+        renderizarAgenda();
     }
 }
 
 // SALVAR TAREFA
-document.getElementById('form-tarefa').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const nome = document.getElementById('t-nome').value;
-    const horario = document.getElementById('t-hora').value;
-    const status = document.getElementById('msg-tarefa');
+document.getElementById('btn-salvar').addEventListener('click', async () => {
+    const nome = document.getElementById('task-title').value;
+    const horario = document.getElementById('task-hour').value;
+    const msg = document.getElementById('msg-agendar');
 
     const { error } = await _supabase.from('tarefas').insert([{ nome, horario }]);
 
     if (!error) {
-        emailjs.send(S_ID, T_ID, { to_name: "Isa", task_name: nome, task_time: horario });
-        status.innerText = "Agendado!";
-        document.getElementById('form-tarefa').reset();
+        emailjs.send('service_4wdjx3o', 'template_51imowl', { to_name: "Isa", task_name: nome, task_time: horario });
+        msg.innerText = "Agendado!";
+        document.getElementById('task-title').value = "";
+    } else {
+        msg.innerText = "Erro ao salvar.";
     }
 });
 
-async function carregarAgenda() {
+async function renderizarAgenda() {
     const { data } = await _supabase.from('tarefas').select('*').order('horario', { ascending: true });
-    const grid = document.getElementById('grid-tarefas');
-    grid.innerHTML = data ? data.map(t => `<div class="item-t"><strong>${t.horario}</strong><span>${t.nome}</span></div>`).join('') : '';
+    const container = document.getElementById('lista-render');
+    container.innerHTML = data ? data.map(t => `<div class="item-lista"><strong>${t.horario}</strong> <span>${t.nome}</span></div>`).join('') : '<p>Vazio</p>';
 }
 
-function sair() { location.reload(); }
+function deslogar() { location.reload(); }
