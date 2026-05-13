@@ -8,55 +8,63 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="corpo-vermelho">
+<body>
 
-    <!-- TELA 1: LOGIN (Aparece primeiro) -->
-    <div id="tela-login" class="secao-auth">
-        <div class="card-login">
-            <img src="https://logodownload.org/wp-content/uploads/2019/08/ademicon-logo.png" alt="Ademicon" class="logo-site" onerror="this.style.display='none'">
-            <h1>Acesso ao Planner</h1>
-            <input type="email" id="email-login" placeholder="Seu e-mail">
-            <input type="password" id="senha-login" placeholder="Sua senha">
-            <button onclick="fazerLogin()" id="btn-entrar">Entrar</button>
-            <p id="erro-auth" class="txt-erro"></p>
+    <!-- SEÇÃO DE AUTENTICAÇÃO -->
+    <div id="sessao-auth" class="tela-cheia-vermelha">
+        
+        <!-- CARD LOGIN -->
+        <div id="card-login" class="card-branco">
+            <h1 class="texto-vermelho">Login Planner</h1>
+            <input type="email" id="email-login" placeholder="E-mail">
+            <input type="password" id="senha-login" placeholder="Senha">
+            <button onclick="executarLogin()" class="btn-vermelho">Entrar</button>
+            <div class="links-auth">
+                <p onclick="trocarAuth('cadastro')">Criar Conta</p>
+                <p onclick="trocarAuth('recuperar')">Esqueci a Senha</p>
+            </div>
+            <p id="msg-login" class="status-msg"></p>
         </div>
+
+        <!-- CARD CADASTRO -->
+        <div id="card-cadastro" class="card-branco hidden">
+            <h1 class="texto-vermelho">Nova Conta</h1>
+            <input type="email" id="email-cadastro" placeholder="E-mail">
+            <input type="password" id="senha-cadastro" placeholder="Senha (min. 6 caracteres)">
+            <button onclick="executarCadastro()" class="btn-vermelho">Cadastrar</button>
+            <p onclick="trocarAuth('login')" class="link-voltar">Voltar ao Login</p>
+            <p id="msg-cadastro" class="status-msg"></p>
+        </div>
+
     </div>
 
-    <!-- TELA 2: DASHBOARD (Escondida até logar) -->
+    <!-- DASHBOARD (ESCONDIDO) -->
     <div id="tela-dashboard" class="hidden">
-        <nav class="navbar">
-            <span class="marca">Ademicon | <strong>Bacharelando</strong></span>
-            <div class="menu">
-                <button onclick="trocarAba('agendar')">Agendar</button>
-                <button onclick="trocarAba('agenda-view')">Ver Agenda</button>
-                <button onclick="deslogar()" class="btn-sair">Sair</button>
+        <nav class="nav-ademicon">
+            <span>Ademicon | <strong>Bacharelando</strong></span>
+            <div class="nav-group">
+                <button onclick="mudarAba('agendar')">Agendar</button>
+                <button onclick="mudarAba('agenda')">Agenda</button>
+                <button onclick="sair()" class="btn-outline">Sair</button>
             </div>
         </nav>
 
-        <!-- Aba Agendar -->
-        <div id="aba-agendar" class="aba-conteudo container">
-            <h2>Novo Compromisso</h2>
-            <form id="form-agendar">
-                <input type="text" id="nome-tarefa" placeholder="Título da tarefa" required>
-                <input type="time" id="horario-tarefa" required>
-                <button type="submit" id="btn-salvar">Salvar e Notificar</button>
-            </form>
-            <p id="status-envio"></p>
+        <div id="aba-agendar" class="aba-container">
+            <div class="form-box">
+                <h2>Novo Compromisso</h2>
+                <form id="form-tarefa">
+                    <input type="text" id="t-nome" placeholder="Título" required>
+                    <input type="time" id="t-hora" required>
+                    <button type="submit" class="btn-vermelho">Salvar e Notificar</button>
+                </form>
+                <p id="msg-tarefa"></p>
+            </div>
         </div>
 
-        <!-- Aba Ver Agenda -->
-        <div id="aba-agenda-view" class="aba-conteudo hidden">
-            <div class="layout-agenda">
-                <div class="resumo">
-                    <div class="card-mini">
-                        <h3 id="contador-total">0</h3>
-                        <p>Tarefas</p>
-                    </div>
-                </div>
-                <div class="lista-container">
-                    <h2>Sua Agenda do Dia</h2>
-                    <div id="grid-tarefas"></div>
-                </div>
+        <div id="aba-agenda" class="aba-container hidden">
+            <div class="lista-box">
+                <h2>Minhas Tarefas</h2>
+                <div id="grid-tarefas"></div>
             </div>
         </div>
     </div>
