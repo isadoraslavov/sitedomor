@@ -8,52 +8,57 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <!-- Navbar (Escondida até logar) -->
-    <nav id="main-nav" class="navbar hidden">
-        <span>Planner Corporativo | <strong>Bacharelando</strong></span>
-        <div class="nav-links">
-            <button onclick="mostrarPagina('agendar')">Agendar</button>
-            <button onclick="mostrarPagina('agenda-view')">Ver Agenda</button>
-            <button onclick="logout()" class="btn-sair">Sair</button>
-        </div>
-    </nav>
+<body class="corpo-vermelho">
 
-    <!-- 1. TELA DE LOGIN (A que sumiu!) -->
-    <div id="pag-login" class="container">
-        <h1>Entrar no Planner</h1>
-        <div class="form-auth">
-            <input type="email" id="login-email" placeholder="Seu e-mail" required>
-            <input type="password" id="login-senha" placeholder="Sua senha" required>
-            <button id="btn-entrar" onclick="login()">Acessar Conta</button>
-            <p onclick="cadastrar()" class="link-alt">Não tem conta? Cadastre-se</p>
+    <!-- TELA 1: LOGIN (Aparece primeiro) -->
+    <div id="tela-login" class="secao-auth">
+        <div class="card-login">
+            <img src="https://logodownload.org/wp-content/uploads/2019/08/ademicon-logo.png" alt="Ademicon" class="logo-site" onerror="this.style.display='none'">
+            <h1>Acesso ao Planner</h1>
+            <input type="email" id="email-login" placeholder="Seu e-mail">
+            <input type="password" id="senha-login" placeholder="Sua senha">
+            <button onclick="fazerLogin()" id="btn-entrar">Entrar</button>
+            <p id="erro-auth" class="txt-erro"></p>
         </div>
-        <p id="auth-status"></p>
     </div>
 
-    <!-- 2. TELA DE AGENDAMENTO (Escondida) -->
-    <div id="pag-agendar" class="container hidden">
-        <h1>Agendar Tarefa</h1>
-        <form id="form-planner">
-            <input type="text" id="nome-tarefa" placeholder="O que precisa ser feito?" required>
-            <input type="time" id="horario-tarefa" required>
-            <button type="submit" id="btn-salvar">Agendar e Avisar</button>
-        </form>
-        <p id="mensagem-status"></p>
-    </div>
-
-    <!-- 3. TELA DE AGENDA (Escondida) -->
-    <div id="pag-agenda-view" class="planner-layout hidden">
-        <aside class="sidebar">
-            <div class="card">
-                <h4 id="total-count">0</h4>
-                <p>Total de Tarefas</p>
+    <!-- TELA 2: DASHBOARD (Escondida até logar) -->
+    <div id="tela-dashboard" class="hidden">
+        <nav class="navbar">
+            <span class="marca">Ademicon | <strong>Bacharelando</strong></span>
+            <div class="menu">
+                <button onclick="trocarAba('agendar')">Agendar</button>
+                <button onclick="trocarAba('agenda-view')">Ver Agenda</button>
+                <button onclick="deslogar()" class="btn-sair">Sair</button>
             </div>
-        </aside>
-        <main class="agenda-view">
-            <h2>Minha Agenda</h2>
-            <div id="planner-grid"></div>
-        </main>
+        </nav>
+
+        <!-- Aba Agendar -->
+        <div id="aba-agendar" class="aba-conteudo container">
+            <h2>Novo Compromisso</h2>
+            <form id="form-agendar">
+                <input type="text" id="nome-tarefa" placeholder="Título da tarefa" required>
+                <input type="time" id="horario-tarefa" required>
+                <button type="submit" id="btn-salvar">Salvar e Notificar</button>
+            </form>
+            <p id="status-envio"></p>
+        </div>
+
+        <!-- Aba Ver Agenda -->
+        <div id="aba-agenda-view" class="aba-conteudo hidden">
+            <div class="layout-agenda">
+                <div class="resumo">
+                    <div class="card-mini">
+                        <h3 id="contador-total">0</h3>
+                        <p>Tarefas</p>
+                    </div>
+                </div>
+                <div class="lista-container">
+                    <h2>Sua Agenda do Dia</h2>
+                    <div id="grid-tarefas"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
