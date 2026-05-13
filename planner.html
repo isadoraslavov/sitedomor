@@ -3,42 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Planner - Dashboard</title>
+    <title>Meu Planner - Agenda</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="planner-wrapper">
-        <nav class="navbar">
-            <span>Olá, <strong>Bacharelando</strong></span>
-            <button class="btn-logout" onclick="location.href='index.html'">Sair</button>
-        </nav>
+    <nav class="navbar">
+        <span>Planner Corporativo | <strong>Bacharelando</strong></span>
+        <button class="btn-logout" onclick="location.href='index.html'">Sair</button>
+    </nav>
 
-        <main class="planner-container">
+    <div class="planner-layout">
+        <aside class="sidebar">
             <section class="task-input-section">
-                <h2>Agendar Compromisso</h2>
-                <div class="input-group">
-                    <input type="text" id="task-name" placeholder="Ex: Reunião de Database">
-                    <input type="time" id="task-time" min="08:00" max="17:00">
-                    <button onclick="addTask()">Agendar</button>
-                </div>
+                <h3>Novo Compromisso</h3>
+                <input type="text" id="task-name" placeholder="Título da reunião">
+                <input type="time" id="task-time" min="08:00" max="17:00">
+                <button onclick="addTask()">Agendar no Horário</button>
             </section>
 
             <section class="stats-cards">
                 <div class="card">
-                    <h3 id="total-count">0</h3>
-                    <p>Total de Tarefas</p>
+                    <h4 id="total-count">0</h4>
+                    <p>Total</p>
                 </div>
                 <div class="card">
-                    <h3 id="pending-count">0</h3>
-                    <p>Pendências</p>
+                    <h4 id="pending-count">0</h4>
+                    <p>Faltam</p>
                 </div>
             </section>
+        </aside>
 
-            <ul id="task-list">
-                <!-- Tarefas inseridas via JavaScript -->
-            </ul>
+        <main class="agenda-view">
+            <h2>Agenda do Dia</h2>
+            <div id="planner-grid">
+                </div>
         </main>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
