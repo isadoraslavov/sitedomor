@@ -1,85 +1,84 @@
 :root {
-    --vermelho-ademicon: #e30613;
+    --vermelho: #e30613;
     --branco: #ffffff;
-    --cinza-claro: #f4f4f4;
-    --texto: #333;
+    --cinza: #f4f4f4;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
 
-body { background-color: var(--cinza-claro); color: var(--texto); }
+.hidden { display: none !important; }
 
-.navbar {
-    background-color: var(--vermelho-ademicon);
-    color: var(--branco);
-    padding: 15px 30px;
+/* Tela de Login */
+.secao-auth {
+    height: 100vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: var(--vermelho);
 }
 
-.nav-links button {
-    background: transparent;
-    border: 1px solid var(--branco);
-    color: var(--branco);
-    padding: 5px 15px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.container {
+.card-login {
     background: var(--branco);
     padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    max-width: 450px;
-    margin: 50px auto;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 380px;
     text-align: center;
 }
 
-.hidden { display: none; }
-.active { display: block; }
+.logo-site { width: 180px; margin-bottom: 20px; }
 
-h1 { color: var(--vermelho-ademicon); margin-bottom: 25px; }
-
-form { display: flex; flex-direction: column; gap: 15px; }
-
-input {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-button#btn-salvar {
-    background-color: var(--vermelho-ademicon);
+/* Navbar */
+.navbar {
+    background: var(--vermelho);
     color: var(--branco);
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button#btn-salvar:hover { background-color: #b3050f; }
-
-/* Estilo da Agenda */
-.planner-layout { display: flex; padding: 30px; gap: 20px; }
-.sidebar { width: 250px; }
-.stats-cards { display: grid; gap: 10px; }
-.card { background: var(--branco); padding: 20px; border-radius: 8px; border-left: 5px solid var(--vermelho-ademicon); text-align: center; }
-.agenda-view { flex: 1; background: var(--branco); padding: 20px; border-radius: 8px; min-height: 400px; }
-
-.tarefa-item {
+    padding: 15px 5%;
     display: flex;
     justify-content: space-between;
-    padding: 15px;
-    border-bottom: 1px solid #eee;
     align-items: center;
 }
 
-#mensagem-status { margin-top: 15px; font-weight: bold; }
-.sucesso { color: #28a745; }
-.erro { color: var(--vermelho-ademicon); }
+.menu button {
+    background: transparent;
+    border: 1px solid var(--branco);
+    color: var(--branco);
+    padding: 8px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Formulário e Cards */
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: var(--branco);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+button#btn-entrar, button#btn-salvar {
+    width: 100%;
+    padding: 12px;
+    background: var(--vermelho);
+    color: var(--branco);
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Lista de Agenda */
+.layout-agenda { display: flex; padding: 40px; gap: 20px; }
+.card-mini { background: var(--branco); padding: 20px; border-top: 5px solid var(--vermelho); text-align: center; }
+.lista-container { flex: 1; background: var(--branco); padding: 20px; border-radius: 8px; }
+.item-tarefa { padding: 15px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; }
