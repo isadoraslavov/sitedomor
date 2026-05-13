@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <span>Bem-vindo(a)!</span>
+        <button onclick="location.href='index.html'">Sair</button>
+    </nav>
+
+    <main class="planner-container">
+        <section class="add-task">
+            <h2>Novo Compromisso</h2>
+            <input type="text" id="task-name" placeholder="O que você precisa fazer?">
+            <input type="time" id="task-time" min="08:00" max="17:00">
+            <button onclick="addTask()">Agendar</button>
+        </section>
+
+        <section class="stats">
+            <p>Total: <span id="total-count">0</span></p>
+            <p>Pendentes: <span id="pending-count">0</span></p>
+        </section>
+
+        <ul id="task-list">
+            <!-- As tarefas aparecerão aqui -->
+        </ul>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
