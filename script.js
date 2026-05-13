@@ -1,79 +1,72 @@
-const SUPABASE_URL = 'https://qbizialhpifperuvueqv.supabase.co'; 
-const SUPABASE_KEY = 'sb_publishable_i8-8p1E4Ia36CmFcUIcdrA_P92HMq74';
-const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const _supabase = supabase.createClient('https://qbizialhpifperuvueqv.supabase.co', 'sb_publishable_i8-8p1E4Ia36CmFcUIcdrA_P92HMq74');
 
-const EMAIL_PUBLIC_KEY = 'J0om68UZr-X2iZqtQ'; 
-const EMAIL_SERVICE_ID = 'service_4wdjx3o';
-const EMAIL_TEMPLATE_ID = 'template_51imowl';
+// DADOS PRESERVADOS DO EMAILJS
+emailjs.init('J0om68UZr-X2iZqtQ');
+const SERVICE_ID = 'service_4wdjx3o';
+const TEMPLATE_ID = 'template_51imowl';
 
-emailjs.init(EMAIL_PUBLIC_KEY);
+// LOGIN (Botão Funcional)
+async function executarLogin() {
+    const email = document.getElementById('email-login').value;
+    const senha = document.getElementById('senha-login').value;
+    const msgErro = document.getElementById('erro-login');
 
-// --- FUNÇÃO DE LOGIN ---
-async function login() {
-    const email = document.getElementById('login-email').value;
-    const senha = document.getElementById('login-senha').value;
-    const status = document.getElementById('auth-status');
-
-    const { data, error } = await _supabase.auth.signInWithPassword({
-        email: email,
-        password: senha,
-    });
+    const { data, error } = await _supabase.auth.signInWithPassword({ email, password: senha });
 
     if (error) {
-        status.innerText = "Erro: " + error.message;
-        status.style.color = "red";
+        msgErro.innerText = "Falha: " + error.message;
     } else {
-        // Sucesso! Esconde login e mostra o resto
-        document.getElementById('pag-login').classList.add('hidden');
-        document.getElementById('main-nav').classList.remove('hidden');
-        mostrarPagina('agendar');
+        document.getElementById('tela-login').classList.add('hidden');
+        document.getElementById('tela-dashboard').classList.remove('hidden');
     }
 }
 
-// --- NAVEGAÇÃO ---
-function mostrarPagina(pagina) {
-    document.getElementById('pag-agendar').classList.add('hidden');
-    document.getElementById('pag-agenda-view').classList.add('hidden');
-    
-    if(pagina === 'agendar') {
-        document.getElementById('pag-agendar').classList.remove('hidden');
+// MUDAR ABAS (Botão Funcional)
+function mudarAba(aba) {
+    document.getElementById('aba-agendar').classList.add('hidden');
+    document.getElementById('aba-visualizar').classList.add('hidden');
+
+    if (aba === 'agendar') {
+        document.getElementById('aba-agendar').classList.remove('hidden');
     } else {
-        document.getElementById('pag-agenda-view').classList.remove('hidden');
-        carregarTarefas();
+        document.getElementById('aba-visualizar').classList.remove('hidden');
+        carregarDados();
     }
 }
 
-// --- SALVAR TAREFA (Sua lógica preservada) ---
-const form = document.getElementById('form-planner');
-form.addEventListener('submit', async (e) => {
+// SALVAR TAREFA E ENVIAR EMAIL
+document.getElementById('form-agendar').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const nome = document.getElementById('nome-tarefa').value;
-    const horario = document.getElementById('horario-tarefa').value;
-    const statusMsg = document.getElementById('mensagem-status');
+    const nome = document.getElementById('task-name').value;
+    const horario = document.getElementById('task-time').value;
+    const status = document.getElementById('status-envio');
 
     const { error } = await _supabase.from('tarefas').insert([{ nome, horario }]);
 
     if (error) {
-        statusMsg.innerText = "Erro no Banco: " + error.message;
+        status.innerText = "Erro ao salvar no banco.";
     } else {
-        // Envia Email
-        emailjs.send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, { to_name: "Isa", task_name: nome, task_time: horario });
-        statusMsg.innerText = "Tarefa salva e e-mail enviado!";
-        form.reset();
+        // Envio do EmailJS
+        emailjs.send(SERVICE_ID, TEMPLATE_ID, { to_name: "Isa", task_name: nome, task_time: horario })
+            .then(() => {
+                status.innerText = "Sucesso! Agendado e Notificado.";
+                document.getElementById('form-agendar').reset();
+            });
     }
 });
 
-// --- CARREGAR TAREFAS ---
-async function carregarTarefas() {
+// CARREGAR LISTA
+async function carregarDados() {
     const { data } = await _supabase.from('tarefas').select('*').order('horario', { ascending: true });
-    const grid = document.getElementById('planner-grid');
-    grid.innerHTML = "";
-    document.getElementById('total-count').innerText = data ? data.length : 0;
-    data.forEach(t => {
-        grid.innerHTML += `<div class="tarefa-item"><strong>${t.horario}</strong> - ${t.nome}</div>`;
-    });
+    const lista = document.getElementById('lista-tarefas');
+    lista.innerHTML = "";
+    document.getElementById('contagem').innerText = data ? data.length : 0;
+    
+    if (data) {
+        data.forEach(t => {
+            lista.innerHTML += `<div class="tarefa-row"><strong>${t.horario}</strong> <span>${t.nome}</span></div>`;
+        });
+    }
 }
 
-function logout() {
-    location.reload(); // Jeito mais rápido de deslogar e voltar pro início
-}
+function sair() { location.reload(); }
