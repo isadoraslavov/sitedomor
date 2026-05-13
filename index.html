@@ -3,26 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planner Corporativo - Login</title>
+    <title>Login planner Ademicon</title>
+    <!-- Bibliotecas do Supabase e EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <form id="login-form">
-            <h1>Login</h1>
-            <p>Acesse sua agenda digital</p>
-            
-            <input type="email" id="email" placeholder="E-mail" required>
-            <input type="password" id="password" placeholder="Senha" required>
-            
-            <button type="submit">Entrar</button>
-            
-            <div class="form-footer">
-                <a href="cadastro.html">Criar nova conta</a>
-                <a href="recuperar.html">Esqueceu a senha?</a>
-            </div>
+        <h1>Planner de Tarefas</h1>
+        <form id="form-planner">
+            <input type="text" id="nome-tarefa" placeholder="O que precisa ser feito?" required>
+            <input type="time" id="horario-tarefa" required>
+            <button type="submit" id="btn-salvar">Agendar e Avisar</button>
         </form>
+        <p id="mensagem-status"></p>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
