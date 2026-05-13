@@ -4,70 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planner Ademicon</title>
+    <!-- Bibliotecas Externas -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="corpo-vermelho">
 
-    <!-- SEÇÃO DE AUTENTICAÇÃO -->
-    <div id="sessao-auth" class="tela-cheia-vermelha">
-        
-        <!-- CARD LOGIN -->
-        <div id="card-login" class="card-branco">
-            <h1 class="texto-vermelho">Login Planner</h1>
-            <input type="email" id="email-login" placeholder="E-mail">
-            <input type="password" id="senha-login" placeholder="Senha">
-            <button onclick="executarLogin()" class="btn-vermelho">Entrar</button>
-            <div class="links-auth">
-                <p onclick="trocarAuth('cadastro')">Criar Conta</p>
-                <p onclick="trocarAuth('recuperar')">Esqueci a Senha</p>
+    <!-- TELA DE AUTENTICAÇÃO -->
+    <section id="auth-section" class="flex-center">
+        <!-- Login -->
+        <div id="card-login" class="card">
+            <h1 class="marca">Login Planner</h1>
+            <div class="inputs">
+                <input type="email" id="email-login" placeholder="E-mail">
+                <input type="password" id="senha-login" placeholder="Senha">
             </div>
-            <p id="msg-login" class="status-msg"></p>
+            <button class="btn-main" id="btn-entrar">Acessar Sistema</button>
+            <div class="opcoes">
+                <span onclick="toggleCards('cadastro')">Criar Conta</span>
+                <span onclick="toggleCards('reset')">Esqueci Senha</span>
+            </div>
+            <p id="feedback-login" class="msg"></p>
         </div>
 
-        <!-- CARD CADASTRO -->
-        <div id="card-cadastro" class="card-branco hidden">
-            <h1 class="texto-vermelho">Nova Conta</h1>
-            <input type="email" id="email-cadastro" placeholder="E-mail">
-            <input type="password" id="senha-cadastro" placeholder="Senha (min. 6 caracteres)">
-            <button onclick="executarCadastro()" class="btn-vermelho">Cadastrar</button>
-            <p onclick="trocarAuth('login')" class="link-voltar">Voltar ao Login</p>
-            <p id="msg-cadastro" class="status-msg"></p>
+        <!-- Cadastro -->
+        <div id="card-cadastro" class="card hidden">
+            <h1 class="marca">Nova Conta</h1>
+            <div class="inputs">
+                <input type="email" id="email-cad" placeholder="Seu melhor e-mail">
+                <input type="password" id="senha-cad" placeholder="Senha (min. 6 carac.)">
+            </div>
+            <button class="btn-main" id="btn-cadastrar">Cadastrar</button>
+            <span class="link-voltar" onclick="toggleCards('login')">Voltar ao Login</span>
+            <p id="feedback-cad" class="msg"></p>
         </div>
+    </section>
 
-    </div>
-
-    <!-- DASHBOARD (ESCONDIDO) -->
-    <div id="tela-dashboard" class="hidden">
-        <nav class="nav-ademicon">
-            <span>Ademicon | <strong>Bacharelando</strong></span>
-            <div class="nav-group">
-                <button onclick="mudarAba('agendar')">Agendar</button>
-                <button onclick="mudarAba('agenda')">Agenda</button>
-                <button onclick="sair()" class="btn-outline">Sair</button>
+    <!-- DASHBOARD -->
+    <main id="dash-section" class="hidden">
+        <nav class="navbar">
+            <span class="logo">Ademicon | <strong>Bacharelando</strong></span>
+            <div class="nav-btns">
+                <button onclick="aba('agendar')">Novo</button>
+                <button onclick="aba('lista')">Agenda</button>
+                <button onclick="deslogar()" class="btn-sair">Sair</button>
             </div>
         </nav>
 
-        <div id="aba-agendar" class="aba-container">
-            <div class="form-box">
-                <h2>Novo Compromisso</h2>
-                <form id="form-tarefa">
-                    <input type="text" id="t-nome" placeholder="Título" required>
-                    <input type="time" id="t-hora" required>
-                    <button type="submit" class="btn-vermelho">Salvar e Notificar</button>
-                </form>
-                <p id="msg-tarefa"></p>
+        <div id="aba-agendar" class="view">
+            <div class="box">
+                <h2>Agendar Tarefa</h2>
+                <input type="text" id="task-title" placeholder="O que fazer?">
+                <input type="time" id="task-hour">
+                <button class="btn-main" id="btn-salvar">Agendar e Avisar</button>
+                <p id="msg-agendar"></p>
             </div>
         </div>
 
-        <div id="aba-agenda" class="aba-container hidden">
-            <div class="lista-box">
+        <div id="aba-lista" class="view hidden">
+            <div class="box wide">
                 <h2>Minhas Tarefas</h2>
-                <div id="grid-tarefas"></div>
+                <div id="lista-render"></div>
             </div>
         </div>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
