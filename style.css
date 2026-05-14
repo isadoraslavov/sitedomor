@@ -1,35 +1,38 @@
-:root { --vermelho: #e30613; --branco: #ffffff; --cinza: #f4f4f4; }
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+:root { --vermelho: #e30613; --branco: #ffffff; --cinza: #f4f4f4; --preto: #2d2d2d; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
 
 body.corpo-vermelho { background: var(--vermelho); min-height: 100vh; display: flex; flex-direction: column; }
 .hidden { display: none !important; }
 
-/* Login e Cadastro */
+/* Login */
 .flex-center { display: flex; justify-content: center; align-items: center; flex: 1; }
-.card { background: #fff; padding: 40px; border-radius: 15px; width: 90%; max-width: 380px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-.marca { color: var(--vermelho); margin-bottom: 20px; }
-input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; }
-.btn-main { width: 100%; padding: 14px; background: var(--vermelho); color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.card { background: white; padding: 40px; border-radius: 15px; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; background: white !important; color: black !important; }
+.btn-main { width: 100%; padding: 14px; background: var(--vermelho); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
 
-/* Dashboard */
-#dash-section { background: var(--cinza); flex: 1; }
-.navbar { background: var(--vermelho); color: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-.nav-btns button { background: none; border: 1px solid #fff; color: #fff; padding: 6px 12px; border-radius: 5px; cursor: pointer; margin-left: 5px; }
+/* Navbar */
+.navbar { background: var(--vermelho); color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
+.nav-btns button { background: white; color: var(--vermelho); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 10px; }
 
-/* Layout Planner */
+/* Planner Layout */
 .view { padding: 30px 5%; display: flex; justify-content: center; }
-.planner-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; width: 100%; max-width: 1000px; }
+.planner-container { display: grid; grid-template-columns: 350px 1fr; gap: 20px; width: 100%; max-width: 1100px; }
 
-.cal-container, .grade-container { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.calendario-col, .grade-col { background: white; padding: 25px; border-radius: 15px; color: var(--preto); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-.cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; color: var(--vermelho); }
+/* Calendário Design */
+.cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; color: var(--vermelho); }
+.dias-semana { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: bold; margin-bottom: 10px; color: #999; font-size: 0.8rem; }
 .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-.dia-c { padding: 10px; text-align: center; border: 1px solid #eee; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
-.dia-c.tem-task { background: var(--vermelho); color: #fff; border-color: var(--vermelho); }
-.dia-c.sel { border: 2px solid #333; font-weight: bold; }
 
-.linha-h { display: flex; border-bottom: 1px solid #eee; min-height: 55px; align-items: center; }
-.h-label { width: 70px; font-weight: bold; color: var(--vermelho); font-size: 0.8rem; }
-.t-area { flex: 1; padding: 5px; display: flex; flex-wrap: wrap; gap: 5px; }
-.t-card { background: #fff5f5; border-left: 4px solid var(--vermelho); padding: 6px 10px; border-radius: 4px; font-size: 0.85rem; display: flex; align-items: center; gap: 10px; }
+.dia-c { padding: 12px 5px; text-align: center; border-radius: 8px; cursor: pointer; border: 1px solid #eee; transition: 0.2s; font-size: 0.9rem; background: #fafafa; }
+.dia-c:hover { background: #ffebeb; }
+.dia-c.tem-task { background: var(--vermelho) !important; color: white !important; font-weight: bold; }
+.dia-c.sel { border: 2px solid var(--preto); }
+
+/* Grade Horários */
+.linha-h { display: flex; border-bottom: 1px solid #eee; min-height: 60px; align-items: center; }
+.h-label { width: 80px; color: var(--vermelho); font-weight: bold; font-size: 0.85rem; }
+.t-area { flex: 1; padding: 5px; display: flex; flex-wrap: wrap; gap: 8px; }
+.t-card { background: #fff5f5; border-left: 4px solid var(--vermelho); padding: 8px 12px; border-radius: 5px; font-size: 0.85rem; display: flex; align-items: center; gap: 10px; }
 .riscado { text-decoration: line-through; opacity: 0.5; }
