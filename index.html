@@ -10,7 +10,7 @@
 </head>
 <body class="corpo-vermelho">
 
-    <!-- TELA DE AUTENTICAÇÃO (IGUAL AO QUE FUNCIONOU) -->
+    <!-- TELA DE LOGIN/CADASTRO -->
     <section id="auth-section" class="flex-center">
         <div id="card-login" class="card">
             <h1 class="marca">Login Planner</h1>
@@ -48,16 +48,30 @@
             <div class="box">
                 <h2>Agendar Tarefa</h2>
                 <input type="text" id="task-title" placeholder="O que fazer?">
+                <input type="date" id="task-date">
                 <input type="time" id="task-hour">
-                <button class="btn-main" id="btn-salvar">Agendar e Avisar</button>
+                <button class="btn-main" id="btn-salvar">Salvar e Notificar</button>
                 <p id="msg-agendar"></p>
             </div>
         </div>
 
         <div id="aba-lista" class="view hidden">
-            <div class="planner-box">
-                <div class="planner-header">Agenda 08:00 - 17:00</div>
-                <div id="grid-horarios"></div>
+            <div class="planner-layout">
+                <!-- COLUNA ESQUERDA: CALENDÁRIO -->
+                <div class="cal-container">
+                    <div class="cal-nav">
+                        <button onclick="mudarMes(-1)">❮</button>
+                        <h3 id="mes-nome">Maio 2026</h3>
+                        <button onclick="mudarMes(1)">❯</button>
+                    </div>
+                    <div id="cal-grid" class="cal-grid"></div>
+                </div>
+
+                <!-- COLUNA DIREITA: GRADE DE HORÁRIOS -->
+                <div class="grade-container">
+                    <h2 id="titulo-dia-selecionado">Selecione um dia</h2>
+                    <div id="grade-corpo"></div>
+                </div>
             </div>
         </div>
     </main>
