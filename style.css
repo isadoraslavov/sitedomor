@@ -1,38 +1,47 @@
-:root { --vermelho: #e30613; --branco: #ffffff; --cinza: #f4f4f4; --preto: #2d2d2d; }
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+:root { --vermelho: #e30613; --branco: #ffffff; --preto: #1a1a1a; --cinza: #f0f0f0; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
-body.corpo-vermelho { background: var(--vermelho); min-height: 100vh; display: flex; flex-direction: column; }
+body.corpo-vermelho { background: var(--vermelho); min-height: 100vh; }
 .hidden { display: none !important; }
 
-/* Login */
-.flex-center { display: flex; justify-content: center; align-items: center; flex: 1; }
-.card { background: white; padding: 40px; border-radius: 15px; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; background: white !important; color: black !important; }
-.btn-main { width: 100%; padding: 14px; background: var(--vermelho); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+/* FIM DA TRANSPARÊNCIA: Força fundo branco e texto preto em TUDO que é input */
+input, .input-fix { 
+    background-color: white !important; 
+    color: black !important; 
+    border: 2px solid #ddd !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    opacity: 1 !important;
+}
 
-/* Navbar */
-.navbar { background: var(--vermelho); color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
-.nav-btns button { background: white; color: var(--vermelho); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 10px; }
+label { color: var(--preto); font-weight: bold; display: block; margin-bottom: 5px; text-align: left; }
 
-/* Planner Layout */
-.view { padding: 30px 5%; display: flex; justify-content: center; }
-.planner-container { display: grid; grid-template-columns: 350px 1fr; gap: 20px; width: 100%; max-width: 1100px; }
+/* Layout da Segunda Página */
+.planner-wrapper { display: flex; flex-direction: row; gap: 20px; width: 95%; max-width: 1200px; align-items: flex-start; }
+.calendario-moldura, .planner-moldura { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex: 1; }
 
-.calendario-col, .grade-col { background: white; padding: 25px; border-radius: 15px; color: var(--preto); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+/* Desenho do Calendário */
+.cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; color: var(--vermelho); }
+.dias-semana-label { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: bold; color: #666; margin-bottom: 10px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
 
-/* Calendário Design */
-.cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; color: var(--vermelho); }
-.dias-semana { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: bold; margin-bottom: 10px; color: #999; font-size: 0.8rem; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.dia-box { 
+    background: var(--cinza); 
+    padding: 15px 5px; 
+    text-align: center; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: bold;
+    color: var(--preto);
+}
+.dia-box.tem-compromisso { background: var(--vermelho) !important; color: white !important; }
+.dia-box.selecionado { border: 3px solid var(--preto); }
 
-.dia-c { padding: 12px 5px; text-align: center; border-radius: 8px; cursor: pointer; border: 1px solid #eee; transition: 0.2s; font-size: 0.9rem; background: #fafafa; }
-.dia-c:hover { background: #ffebeb; }
-.dia-c.tem-task { background: var(--vermelho) !important; color: white !important; font-weight: bold; }
-.dia-c.sel { border: 2px solid var(--preto); }
-
-/* Grade Horários */
-.linha-h { display: flex; border-bottom: 1px solid #eee; min-height: 60px; align-items: center; }
-.h-label { width: 80px; color: var(--vermelho); font-weight: bold; font-size: 0.85rem; }
-.t-area { flex: 1; padding: 5px; display: flex; flex-wrap: wrap; gap: 8px; }
-.t-card { background: #fff5f5; border-left: 4px solid var(--vermelho); padding: 8px 12px; border-radius: 5px; font-size: 0.85rem; display: flex; align-items: center; gap: 10px; }
-.riscado { text-decoration: line-through; opacity: 0.5; }
+/* Desenho do Planner (Horários) */
+.grade-scroll { height: 400px; overflow-y: auto; margin-top: 15px; border-top: 1px solid #eee; }
+.linha-horario { display: flex; border-bottom: 1px solid #eee; padding: 10px 0; align-items: center; }
+.hora-label { width: 70px; color: var(--vermelho); font-weight: bold; font-size: 0.9rem; }
+.tarefa-caixa { flex: 1; background: #fff5f5; border-left: 4px solid var(--vermelho); padding: 8px; border-radius: 4px; display: flex; align-items: center; gap: 10px; }
