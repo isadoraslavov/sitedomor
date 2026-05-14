@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="corpo-vermelho">
-
-    <!-- LOGIN / CADASTRO -->
+    <!-- Seção de Login (Seu código funcional que você já usa) -->
     <section id="auth-section" class="flex-center">
         <div id="card-login" class="card">
             <h1 class="marca">Login Planner</h1>
@@ -18,18 +17,19 @@
             <input type="password" id="senha-login" placeholder="Senha">
             <button class="btn-main" id="btn-entrar">Acessar Sistema</button>
             <div class="opcoes"><span onclick="toggleCards('cadastro')">Criar Conta</span></div>
+            <p id="feedback-login" class="msg"></p>
         </div>
-
         <div id="card-cadastro" class="card hidden">
             <h1 class="marca">Nova Conta</h1>
             <input type="email" id="email-cad" placeholder="Seu e-mail">
             <input type="password" id="senha-cad" placeholder="Senha">
             <button class="btn-main" id="btn-cadastrar">Cadastrar</button>
             <span class="link-voltar" onclick="toggleCards('login')">Voltar</span>
+            <p id="feedback-cad" class="msg"></p>
         </div>
     </section>
 
-    <!-- DASHBOARD PRINCIPAL -->
+    <!-- Dashboard -->
     <main id="dash-section" class="hidden">
         <nav class="navbar">
             <span class="logo">Ademicon | <strong>Bacharelando</strong></span>
@@ -40,42 +40,33 @@
             </div>
         </nav>
 
-        <!-- ABA AGENDAR -->
         <div id="aba-agendar" class="view">
             <div class="box">
                 <h2>Agendar Tarefa</h2>
-                <input type="text" id="task-title" placeholder="O que fazer?">
+                <input type="text" id="task-title" placeholder="Título">
                 <input type="date" id="task-date">
                 <input type="time" id="task-hour">
                 <button class="btn-main" id="btn-salvar">Salvar e Notificar</button>
             </div>
         </div>
 
-        <!-- ABA PLANNER (CALENDÁRIO + GRADE) -->
         <div id="aba-lista" class="view hidden">
             <div class="planner-container">
-                <!-- Lado Esquerdo: Calendário -->
-                <div class="calendario-col">
+                <div class="cal-box">
                     <div class="cal-nav">
                         <button onclick="mudarMes(-1)">❮</button>
                         <h3 id="mes-nome">Maio 2026</h3>
                         <button onclick="mudarMes(1)">❯</button>
                     </div>
-                    <div class="dias-semana">
-                        <span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span>
-                    </div>
                     <div id="cal-grid" class="cal-grid"></div>
                 </div>
-
-                <!-- Lado Direito: Grade de Horários -->
-                <div class="grade-col">
+                <div class="grade-box">
                     <h2 id="titulo-dia">Selecione um dia</h2>
                     <div id="grade-corpo"></div>
                 </div>
             </div>
         </div>
     </main>
-
     <script src="script.js"></script>
 </body>
 </html>
