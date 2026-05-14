@@ -1,28 +1,35 @@
 :root { --vermelho: #e30613; --branco: #ffffff; --cinza: #f4f4f4; }
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
-body { min-height: 100vh; display: flex; flex-direction: column; }
-.corpo-vermelho { background: var(--vermelho); }
+body.corpo-vermelho { background: var(--vermelho); min-height: 100vh; display: flex; flex-direction: column; }
 .hidden { display: none !important; }
 
-/* Centralização do Login */
-.flex-center { display: flex; justify-content: center; align-items: center; flex: 1; width: 100%; }
-.card { background: var(--branco); padding: 40px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; }
-
-.btn-main { width: 100%; padding: 14px; background: var(--vermelho); color: var(--branco); border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+/* Login e Cadastro */
+.flex-center { display: flex; justify-content: center; align-items: center; flex: 1; }
+.card { background: #fff; padding: 40px; border-radius: 15px; width: 90%; max-width: 380px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+.marca { color: var(--vermelho); margin-bottom: 20px; }
 input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; }
+.btn-main { width: 100%; padding: 14px; background: var(--vermelho); color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
 /* Dashboard */
-#dash-section { background: var(--cinza); flex: 1; width: 100%; }
-.navbar { background: var(--vermelho); color: var(--branco); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-.view { padding: 40px 5%; display: flex; justify-content: center; width: 100%; }
-.box { background: var(--branco); padding: 30px; border-radius: 10px; width: 100%; max-width: 500px; }
+#dash-section { background: var(--cinza); flex: 1; }
+.navbar { background: var(--vermelho); color: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+.nav-btns button { background: none; border: 1px solid #fff; color: #fff; padding: 6px 12px; border-radius: 5px; cursor: pointer; margin-left: 5px; }
 
-/* Grade do Planner */
-.planner-box { background: #fff; width: 100%; max-width: 700px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.planner-header { background: #f8f9fa; padding: 15px; font-weight: bold; border-bottom: 2px solid var(--vermelho); text-align: center; }
-.linha-hora { display: flex; border-bottom: 1px solid #eee; min-height: 50px; }
-.hora-txt { width: 70px; padding: 10px; font-weight: bold; color: var(--vermelho); border-right: 1px solid #eee; background: #fffcfc; font-size: 0.85rem; }
-.tarefa-slot { flex: 1; padding: 5px 10px; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
-.mini-card { background: #fff5f5; border-left: 3px solid var(--vermelho); padding: 5px 10px; border-radius: 3px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
-.concluida { text-decoration: line-through; opacity: 0.5; }
+/* Layout Planner */
+.view { padding: 30px 5%; display: flex; justify-content: center; }
+.planner-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; width: 100%; max-width: 1000px; }
+
+.cal-container, .grade-container { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+.cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; color: var(--vermelho); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.dia-c { padding: 10px; text-align: center; border: 1px solid #eee; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+.dia-c.tem-task { background: var(--vermelho); color: #fff; border-color: var(--vermelho); }
+.dia-c.sel { border: 2px solid #333; font-weight: bold; }
+
+.linha-h { display: flex; border-bottom: 1px solid #eee; min-height: 55px; align-items: center; }
+.h-label { width: 70px; font-weight: bold; color: var(--vermelho); font-size: 0.8rem; }
+.t-area { flex: 1; padding: 5px; display: flex; flex-wrap: wrap; gap: 5px; }
+.t-card { background: #fff5f5; border-left: 4px solid var(--vermelho); padding: 6px 10px; border-radius: 4px; font-size: 0.85rem; display: flex; align-items: center; gap: 10px; }
+.riscado { text-decoration: line-through; opacity: 0.5; }
