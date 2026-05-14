@@ -1,71 +1,28 @@
-/* MANTENHA TODO O CSS ANTERIOR E ADICIONE ESTE BLOCO NO FINAL */
+:root { --vermelho: #e30613; --branco: #ffffff; --cinza: #f4f4f4; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
-.planner-container {
-    width: 100%;
-    max-width: 800px;
-    background: var(--branco);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
+body { min-height: 100vh; display: flex; flex-direction: column; }
+.corpo-vermelho { background: var(--vermelho); }
+.hidden { display: none !important; }
 
-.planner-header {
-    background: #f8f9fa;
-    padding: 20px;
-    border-bottom: 2px solid var(--vermelho);
-    text-align: center;
-}
+/* Centralização do Login */
+.flex-center { display: flex; justify-content: center; align-items: center; flex: 1; width: 100%; }
+.card { background: var(--branco); padding: 40px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; }
 
-.planner-grid {
-    display: flex;
-    flex-direction: column;
-}
+.btn-main { width: 100%; padding: 14px; background: var(--vermelho); color: var(--branco); border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; }
 
-.linha-hora {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    min-height: 60px;
-}
+/* Dashboard */
+#dash-section { background: var(--cinza); flex: 1; width: 100%; }
+.navbar { background: var(--vermelho); color: var(--branco); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+.view { padding: 40px 5%; display: flex; justify-content: center; width: 100%; }
+.box { background: var(--branco); padding: 30px; border-radius: 10px; width: 100%; max-width: 500px; }
 
-.hora-label {
-    width: 80px;
-    padding: 10px;
-    font-weight: bold;
-    color: var(--vermelho);
-    border-right: 1px solid #eee;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-.tarefa-slot {
-    flex: 1;
-    padding: 5px 15px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.card-tarefa {
-    background: #fff5f5;
-    border-left: 4px solid var(--vermelho);
-    padding: 8px 12px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
-}
-
-.card-tarefa input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    accent-color: var(--vermelho);
-}
-
-.concluida {
-    text-decoration: line-through;
-    opacity: 0.6;
-}
+/* Grade do Planner */
+.planner-box { background: #fff; width: 100%; max-width: 700px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.planner-header { background: #f8f9fa; padding: 15px; font-weight: bold; border-bottom: 2px solid var(--vermelho); text-align: center; }
+.linha-hora { display: flex; border-bottom: 1px solid #eee; min-height: 50px; }
+.hora-txt { width: 70px; padding: 10px; font-weight: bold; color: var(--vermelho); border-right: 1px solid #eee; background: #fffcfc; font-size: 0.85rem; }
+.tarefa-slot { flex: 1; padding: 5px 10px; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.mini-card { background: #fff5f5; border-left: 3px solid var(--vermelho); padding: 5px 10px; border-radius: 3px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
+.concluida { text-decoration: line-through; opacity: 0.5; }
