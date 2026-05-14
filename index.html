@@ -1,34 +1,67 @@
-<!-- MANTENHA O RESTANTE DO HTML IGUAL, APENAS SUBSTITUA A <main id="dash-section"> -->
-<main id="dash-section" class="hidden">
-    <nav class="navbar">
-        <span class="logo">Ademicon | <strong>Bacharelando</strong></span>
-        <div class="nav-btns">
-            <button onclick="aba('agendar')">Novo</button>
-            <button onclick="aba('lista')">Planner</button>
-            <button onclick="deslogar()" class="btn-sair">Sair</button>
-        </div>
-    </nav>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner Ademicon</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="corpo-vermelho">
 
-    <!-- ABA AGENDAR (SEM ALTERAÇÕES) -->
-    <div id="aba-agendar" class="view">
-        <div class="box">
-            <h2>Agendar Tarefa</h2>
-            <input type="text" id="task-title" placeholder="O que fazer?">
-            <input type="time" id="task-hour">
-            <button class="btn-main" id="btn-salvar">Agendar e Avisar</button>
-            <p id="msg-agendar"></p>
+    <!-- TELA DE AUTENTICAÇÃO (IGUAL AO QUE FUNCIONOU) -->
+    <section id="auth-section" class="flex-center">
+        <div id="card-login" class="card">
+            <h1 class="marca">Login Planner</h1>
+            <input type="email" id="email-login" placeholder="E-mail">
+            <input type="password" id="senha-login" placeholder="Senha">
+            <button class="btn-main" id="btn-entrar">Acessar Sistema</button>
+            <div class="opcoes">
+                <span onclick="toggleCards('cadastro')">Criar Conta</span>
+            </div>
+            <p id="feedback-login" class="msg"></p>
         </div>
-    </div>
 
-    <!-- ABA LISTA (VISUAL DE PLANNER COM GRADE) -->
-    <div id="aba-lista" class="view hidden">
-        <div class="planner-container">
-            <div class="planner-header">
-                <h2>Agenda do Dia</h2>
+        <div id="card-cadastro" class="card hidden">
+            <h1 class="marca">Nova Conta</h1>
+            <input type="email" id="email-cad" placeholder="Seu e-mail">
+            <input type="password" id="senha-cad" placeholder="Senha">
+            <button class="btn-main" id="btn-cadastrar">Cadastrar</button>
+            <span class="link-voltar" onclick="toggleCards('login')">Voltar</span>
+            <p id="feedback-cad" class="msg"></p>
+        </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <main id="dash-section" class="hidden">
+        <nav class="navbar">
+            <span class="logo">Ademicon | <strong>Bacharelando</strong></span>
+            <div class="nav-btns">
+                <button onclick="aba('agendar')">Novo</button>
+                <button onclick="aba('lista')">Planner</button>
+                <button onclick="deslogar()" class="btn-sair">Sair</button>
             </div>
-            <div class="planner-grid" id="grid-horarios">
-                <!-- Os horários das 08h às 17h serão gerados aqui -->
+        </nav>
+
+        <div id="aba-agendar" class="view">
+            <div class="box">
+                <h2>Agendar Tarefa</h2>
+                <input type="text" id="task-title" placeholder="O que fazer?">
+                <input type="time" id="task-hour">
+                <button class="btn-main" id="btn-salvar">Agendar e Avisar</button>
+                <p id="msg-agendar"></p>
             </div>
         </div>
-    </div>
-</main>
+
+        <div id="aba-lista" class="view hidden">
+            <div class="planner-box">
+                <div class="planner-header">Agenda 08:00 - 17:00</div>
+                <div id="grid-horarios"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
